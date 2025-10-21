@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Block access to admin areas
+Disallow: /admin
+Disallow: /api/admin
+
+# Block access to auth pages (but allow crawling of the login page structure)
+Disallow: /auth
+
+# Allow crawling of supplier profiles
+Allow: /supplier/
+
+# Sitemap
+Sitemap: https://greenchainz.com/sitemap.xml
