@@ -1,8 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useAuth } from './auth/context';
+import { trackPageView, trackSearch, trackContactClick } from '@/lib/analytics';
 import Link from 'next/link';
+
+export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
   const [query, setQuery] = useState('');
@@ -16,6 +19,11 @@ export default function HomePage() {
     certification: ''
   });
   const { user } = useAuth();
+
+  // Track homepage view on mount
+  useEffect(() => {
+    trackPageView('homepage');
+  }, []);
 
   // Create clients only when needed
   const getSupabaseClient = () => {
@@ -74,6 +82,9 @@ export default function HomePage() {
 
   const handleSearch = async () => {
     try {
+      // Track search event
+      trackSearch(query, filters);
+      
       // Build query parameters
       const params = new URLSearchParams();
       if (query.trim()) params.append('q', query);
