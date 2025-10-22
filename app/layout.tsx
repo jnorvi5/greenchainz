@@ -6,6 +6,7 @@ import { AuthProvider } from './auth/context';
 import { AuthNav } from './components/AuthNav';
 import { CookieConsent } from './components/CookieConsent';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: 'GreenChainz - Sustainable Supplier Directory',
@@ -60,18 +61,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-    other: [
-      { rel: 'android-chrome-192x192', url: '/android-chrome-192x192.png' },
-      { rel: 'android-chrome-512x512', url: '/android-chrome-512x512.png' },
-    ],
+    icon: '/icon.svg',
   },
   manifest: '/manifest.json',
 };
@@ -91,6 +81,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     <li><a href="#suppliers" className="hover:text-green-200 transition-colors">Suppliers</a></li>
                     <li><a href="#resources" className="hover:text-green-200 transition-colors">Resources</a></li>
                     <li><a href="#investors" className="hover:text-green-200 transition-colors">For Investors</a></li>
+                    <li><a href="/admin" className="hover:text-green-200 transition-colors">Dashboard</a></li>
                     <li><a href="#contact" className="hover:text-green-200 transition-colors">Contact</a></li>
                   </ul>
                   <AuthNav />
