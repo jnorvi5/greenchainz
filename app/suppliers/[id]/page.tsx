@@ -2,20 +2,28 @@ import { createClient } from '@supabase/supabase-js';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
 interface SupplierProfileProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function SupplierProfile({ params }: SupplierProfileProps) {
+  const { id } = await params;
+  
+  // Create Supabase client inside the function to avoid build-time issues
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('Supabase environment variables not configured');
+    notFound();
+  }
+  
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  
   const { data: supplier, error } = await supabase
     .from('suppliers')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
 
   if (error || !supplier) {

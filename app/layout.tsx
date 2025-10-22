@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { AuthProvider } from './auth/context';
 import { AuthNav } from './components/AuthNav';
 import { CookieConsent } from './components/CookieConsent';
@@ -98,6 +99,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </header>
             {children}
             <CookieConsent />
+            <Analytics />
           </AuthProvider>
         </ErrorBoundary>
       </body>

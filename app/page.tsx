@@ -4,6 +4,8 @@ import { createClient } from '@supabase/supabase-js';
 import { useAuth } from './auth/context';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default function HomePage() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<any[]>([]);
