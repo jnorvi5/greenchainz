@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import { useAuth } from '../../auth/context';
+import { trackSupplierView, trackContactClick } from '@/lib/analytics';
 import Link from 'next/link';
 
 const supabase = createClient(
@@ -39,6 +40,11 @@ export default function SupplierProfile() {
 
       if (error) throw error;
       setSupplier(data);
+      
+      // Track supplier profile view
+      if (data) {
+        trackSupplierView(data.id, data.name);
+      }
     } catch (error) {
       console.error('Error fetching supplier:', error);
     } finally {
@@ -48,6 +54,9 @@ export default function SupplierProfile() {
 
   const sendContactEmail = async () => {
     if (!supplier?.contact_email) return;
+    
+    // Track contact click
+    trackContactClick(supplier.id);
 
     try {
       const response = await fetch('/api/contact-supplier', {
