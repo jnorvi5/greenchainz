@@ -8,14 +8,15 @@ const supabase = createClient(
 );
 
 interface SupplierProfileProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function SupplierProfile({ params }: SupplierProfileProps) {
+  const { id } = await params;
   const { data: supplier, error } = await supabase
     .from('suppliers')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
 
   if (error || !supplier) {
