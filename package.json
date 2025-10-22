@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "db:migrate": "echo '\n📋 To run migrations:\n1. Open your Supabase SQL Editor\n2. Copy the contents of supabase/migrations/001_init.sql\n3. Paste and execute in the SQL Editor\n4. Run npm run seed:demo to populate demo data\n'",
+    "seed:demo": "tsx scripts/seed-demo.ts"
   },
   "keywords": [],
   "author": "",
@@ -41,5 +43,9 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.9.2",
     "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.4",
+    "tsx": "^4.20.6"
   }
 }
