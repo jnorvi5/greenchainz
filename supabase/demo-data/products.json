@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Solar Panel 400W",
+    "description": "High-efficiency monocrystalline solar panel, 400W output, 25-year warranty",
+    "category": "Electronics",
+    "price": 299.99,
+    "currency": "USD",
+    "minimum_order": 10,
+    "unit": "panel",
+    "certifications": ["Energy Star", "IEC 61215"],
+    "specifications": {
+      "power": "400W",
+      "efficiency": "21.5%",
+      "dimensions": "1692x1040x35mm",
+      "weight": "20kg"
+    },
+    "sustainability_score": 95
+  },
+  {
+    "name": "Organic Cotton T-Shirt",
+    "description": "100% GOTS certified organic cotton, fair trade produced",
+    "category": "Textiles",
+    "price": 24.99,
+    "currency": "USD",
+    "minimum_order": 100,
+    "unit": "piece",
+    "certifications": ["GOTS", "Fair Trade"],
+    "specifications": {
+      "material": "100% Organic Cotton",
+      "weight": "180 gsm",
+      "colors": ["white", "black", "natural"]
+    },
+    "sustainability_score": 92
+  },
+  {
+    "name": "Compostable Food Container",
+    "description": "Biodegradable food container made from plant fibers, compostable within 90 days",
+    "category": "Packaging",
+    "price": 0.85,
+    "currency": "USD",
+    "minimum_order": 1000,
+    "unit": "piece",
+    "certifications": ["Compostable", "BPI Certified"],
+    "specifications": {
+      "material": "Plant fiber",
+      "capacity": "32 oz",
+      "temperature_range": "-20°C to 100°C"
+    },
+    "sustainability_score": 88
+  },
+  {
+    "name": "Industrial Water Filter",
+    "description": "Multi-stage filtration system for industrial applications, 10,000 gallon capacity",
+    "category": "Water Treatment",
+    "price": 1499.99,
+    "currency": "USD",
+    "minimum_order": 1,
+    "unit": "unit",
+    "certifications": ["NSF/ANSI 61", "ISO 14001"],
+    "specifications": {
+      "capacity": "10000 gallons",
+      "filtration_stages": 5,
+      "flow_rate": "15 GPM"
+    },
+    "sustainability_score": 91
+  },
+  {
+    "name": "Recycled Plastic Lumber",
+    "description": "Structural lumber made from 100% recycled plastic, weather-resistant",
+    "category": "Packaging",
+    "price": 12.50,
+    "currency": "USD",
+    "minimum_order": 50,
+    "unit": "linear foot",
+    "certifications": ["Recycled Content Certified"],
+    "specifications": {
+      "material": "100% Recycled HDPE",
+      "dimensions": "2x4 inches",
+      "length": "8 feet"
+    },
+    "sustainability_score": 86
+  }
+]
