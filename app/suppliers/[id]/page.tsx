@@ -9,7 +9,6 @@ interface SupplierProfileProps {
 export default async function SupplierProfile({ params }: SupplierProfileProps) {
   const { id } = await params;
 
-  
   // Create Supabase client inside the function to avoid build-time issues
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -20,7 +19,11 @@ export default async function SupplierProfile({ params }: SupplierProfileProps) 
   }
   
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
+copilot/fix-and-spruce-up-code
+
+
   
+ main
   const { data: supplier, error } = await supabase
     .from('suppliers')
     .select('*')
