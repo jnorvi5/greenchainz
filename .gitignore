@@ -1,13 +1,5 @@
-
-.next
-.env
-.env.local
-.env*.local
-dist
-out
-build
-*.log
-=======
+# Dependencies
+node_modules/
 /.pnp
 .pnp.js
 
@@ -15,15 +7,20 @@ build
 /coverage
 
 # Next.js
+.next
 /.next/
 /out/
 
 # Production
 /build
+dist
+out
+build
 
 # Misc
 .DS_Store
 *.pem
+*.log
 
 # Debug
 npm-debug.log*
@@ -32,6 +29,7 @@ yarn-error.log*
 
 # Local env files
 .env
+.env.local
 .env*.local
 .env.development.local
 .env.test.local
