@@ -74,21 +74,31 @@ export default function AdminDashboard() {
 
   const approveSupplier = async (supplierId: string) => {
     try {
-      const { error } = await supabase
-        .from('suppliers')
-        .update({
-          verified: true,
-          verification_date: new Date().toISOString()
-        })
-        .eq('id', supplierId);
+      // Use the vetting API endpoint for consistent auditing
+      const response = await fetch('/api/admin/vetting', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          supplier_id: supplierId,
+          action: 'approve',
+          actor: user?.email || 'admin',
+          notes: 'Approved via admin dashboard',
+        }),
+      });
 
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error('Failed to approve supplier');
+      }
+
+      const result = await response.json();
 
       // Update local state
       setSuppliers(prev =>
         prev.map(supplier =>
           supplier.id === supplierId
-            ? { ...supplier, verified: true, verification_date: new Date().toISOString() }
+            ? { ...supplier, verified: true, vetting_status: 'verified', verification_date: new Date().toISOString() }
             : supplier
         )
       );
@@ -108,32 +118,127 @@ export default function AdminDashboard() {
   };
 
   const rejectSupplier = async (supplierId: string) => {
-    if (!confirm('Are you sure you want to reject this supplier? This action cannot be undone.')) {
+    if (!confirm('Are you sure you want to reject this supplier?')) {
       return;
     }
 
     try {
-      const { error } = await supabase
-        .from('suppliers')
-        .delete()
-        .eq('id', supplierId);
+      // Use the vetting API endpoint for consistent auditing
+      const response = await fetch('/api/admin/vetting', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          supplier_id: supplierId,
+          action: 'reject',
+          actor: user?.email || 'admin',
+          notes: 'Rejected via admin dashboard',
+        }),
+      });
 
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error('Failed to reject supplier');
+      }
 
       // Update local state
-      setSuppliers(prev => prev.filter(supplier => supplier.id !== supplierId));
+      setSuppliers(prev =>
+        prev.map(supplier =>
+          supplier.id === supplierId
+            ? { ...supplier, verified: false, vetting_status: 'rejected' }
+            : supplier
+        )
+      );
 
       // Update stats
       setStats(prev => ({
         ...prev,
-        totalSuppliers: prev.totalSuppliers - 1,
         pendingApprovals: prev.pendingApprovals - 1
       }));
 
-      alert('Supplier rejected and removed.');
+      alert('Supplier rejected.');
     } catch (error) {
       console.error('Error rejecting supplier:', error);
       alert('Error rejecting supplier');
+    }
+  };
+
+  const requestDocs = async (supplierId: string) => {
+    const notes = prompt('Enter notes for the supplier about required documents:');
+    if (!notes) return;
+
+    try {
+      const response = await fetch('/api/admin/vetting', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          supplier_id: supplierId,
+          action: 'request_docs',
+          actor: user?.email || 'admin',
+          notes,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to request documents');
+      }
+
+      // Update local state
+      setSuppliers(prev =>
+        prev.map(supplier =>
+          supplier.id === supplierId
+            ? { ...supplier, vetting_status: 'needs_info', vetting_notes: notes }
+            : supplier
+        )
+      );
+
+      alert('Document request sent successfully!');
+    } catch (error) {
+      console.error('Error requesting documents:', error);
+      alert('Error requesting documents');
+    }
+  };
+
+  const verifyCert = async (supplierId: string) => {
+    const notes = prompt('Enter verification notes (optional):');
+
+    try {
+      const response = await fetch('/api/admin/vetting', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          supplier_id: supplierId,
+          action: 'verify_cert',
+          actor: user?.email || 'admin',
+          notes: notes || undefined,
+          checklist: {
+            certifications_verified: true,
+            documentation_complete: true,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to verify certification');
+      }
+
+      // Update local state
+      setSuppliers(prev =>
+        prev.map(supplier =>
+          supplier.id === supplierId
+            ? { ...supplier, last_verified_at: new Date().toISOString() }
+            : supplier
+        )
+      );
+
+      alert('Certification verified successfully!');
+    } catch (error) {
+      console.error('Error verifying certification:', error);
+      alert('Error verifying certification');
     }
   };
 
@@ -328,8 +433,18 @@ export default function AdminDashboard() {
                       <p className="text-sm text-gray-500 mt-1">
                         Sustainability Score: {supplier.sustainability_score}/100
                       </p>
+                      {supplier.vetting_status && (
+                        <span className={`inline-block mt-2 px-2 py-1 text-xs font-semibold rounded ${
+                          supplier.vetting_status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                          supplier.vetting_status === 'needs_info' ? 'bg-orange-100 text-orange-800' :
+                          supplier.vetting_status === 'verified' ? 'bg-green-100 text-green-800' :
+                          'bg-red-100 text-red-800'
+                        }`}>
+                          Vetting Status: {supplier.vetting_status}
+                        </span>
+                      )}
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex flex-col gap-2">
                       <button
                         onClick={() => approveSupplier(supplier.id)}
                         className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
@@ -342,10 +457,78 @@ export default function AdminDashboard() {
                       >
                         Reject
                       </button>
+                      <button
+                        onClick={() => requestDocs(supplier.id)}
+                        className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700"
+                      >
+                        Request Docs
+                      </button>
+                      <button
+                        onClick={() => verifyCert(supplier.id)}
+                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                      >
+                        Verify Cert
+                      </button>
                     </div>
                   </div>
 
                   <p className="text-gray-700 mb-4">{supplier.description}</p>
+
+                  {/* Certification Evidence Section */}
+                  {(supplier.fsc_license_code || supplier.compostability_standard || 
+                    supplier.organic_textile_cert || supplier.recycled_content_cert || 
+                    supplier.ethical_agri_cert || supplier.epd_url) && (
+                    <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+                      <h4 className="font-semibold text-blue-900 mb-2">Certification Evidence</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                        {supplier.fsc_license_code && (
+                          <div>
+                            <span className="font-medium">FSC License: </span>
+                            <span className="text-gray-700">{supplier.fsc_license_code}</span>
+                          </div>
+                        )}
+                        {supplier.compostability_standard && (
+                          <div>
+                            <span className="font-medium">Compostability: </span>
+                            <span className="text-gray-700">{supplier.compostability_standard}</span>
+                          </div>
+                        )}
+                        {supplier.organic_textile_cert && (
+                          <div>
+                            <span className="font-medium">Organic Textile: </span>
+                            <span className="text-gray-700">{supplier.organic_textile_cert}</span>
+                          </div>
+                        )}
+                        {supplier.recycled_content_cert && (
+                          <div>
+                            <span className="font-medium">Recycled Content: </span>
+                            <span className="text-gray-700">{supplier.recycled_content_cert}</span>
+                          </div>
+                        )}
+                        {supplier.ethical_agri_cert && (
+                          <div>
+                            <span className="font-medium">Ethical Agriculture: </span>
+                            <span className="text-gray-700">{supplier.ethical_agri_cert}</span>
+                          </div>
+                        )}
+                        {supplier.epd_url && (
+                          <div className="md:col-span-2">
+                            <span className="font-medium">EPD: </span>
+                            <a href={supplier.epd_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                              {supplier.epd_url}
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {supplier.vetting_notes && (
+                    <div className="mb-4 p-3 bg-yellow-50 rounded border border-yellow-200">
+                      <span className="font-medium text-yellow-900">Vetting Notes: </span>
+                      <span className="text-yellow-800">{supplier.vetting_notes}</span>
+                    </div>
+                  )}
 
                   {supplier.certifications && supplier.certifications.length > 0 && (
                     <div className="mb-4">
@@ -362,6 +545,11 @@ export default function AdminDashboard() {
 
                   <div className="text-sm text-gray-500">
                     Registered on {new Date(supplier.created_at).toLocaleDateString()}
+                    {supplier.last_verified_at && (
+                      <span className="ml-4">
+                        Last verified: {new Date(supplier.last_verified_at).toLocaleDateString()}
+                      </span>
+                    )}
                   </div>
                 </div>
               ))
