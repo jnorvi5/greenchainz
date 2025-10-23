@@ -15,10 +15,18 @@ GreenChainz is an investor-ready MVP platform connecting buyers with verified su
 Create a `.env.local` file in the root directory:
 
 ```bash
+# Required
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-NEXT_PUBLIC_ANALYTICS_ENABLED=true
+
+# Optional: Analytics (see ANALYTICS.md for setup)
+NEXT_PUBLIC_ANALYTICS_ENABLED=false
+NEXT_PUBLIC_POSTHOG_KEY=your_posthog_key
+NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
+NEXT_PUBLIC_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
+
+See `.env.example` for all available configuration options.
 
 ### Installation
 
@@ -117,10 +125,13 @@ Access the analytics dashboard at [http://localhost:3000/dashboard](http://local
 
 ### Analytics Integration
 
-The platform includes:
-- **Vercel Analytics** - Production-ready analytics
+The platform includes comprehensive analytics tracking:
+- **Vercel Analytics** - Production-ready analytics included by default
+- **PostHog** - Open-source product analytics (optional)
+- **Google Analytics 4** - Traditional web analytics (optional)
 - **Custom Event Tracker** - Local event storage for development
-- Ready for PostHog/Mixpanel integration (see `src/lib/analytics.ts`)
+
+See [ANALYTICS.md](ANALYTICS.md) for detailed setup instructions.
 
 ### Tracked Events:
 - `homepage_view` - Homepage visits
@@ -129,6 +140,25 @@ The platform includes:
 - `contact_click` - Contact button clicks
 - `rfq_created` - RFQ submissions
 - `supplier_registered` - New supplier registrations
+- `user_signed_up` - User sign-up events
+- `user_signed_in` - User sign-in events
+
+### Setup Analytics (Optional)
+
+To enable PostHog and/or GA4 tracking:
+
+```bash
+# In .env.local
+NEXT_PUBLIC_ANALYTICS_ENABLED=true
+NEXT_PUBLIC_POSTHOG_KEY=phc_your_key_here
+NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
+NEXT_PUBLIC_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+For detailed setup instructions, see:
+- [ANALYTICS.md](ANALYTICS.md) - Complete analytics guide
+- [ANALYTICS_TESTING.md](ANALYTICS_TESTING.md) - Testing guide
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Deployment with analytics
 
 ## 🏗️ Project Structure
 

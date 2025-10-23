@@ -2,6 +2,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { createClient } from '@supabase/supabase-js';
+import { analytics } from '@/lib/analytics';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -33,10 +34,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      const prevUser = user;
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+
+      // Track auth events
+      if (event === 'SIGNED_IN' && session?.user) {
+        analytics.identify(session.user.id, {
+          email: session.user.email,
+        });
+        
+        // Differentiate between sign-up and sign-in based on user metadata
+        const isNewUser = session.user.created_at === session.user.updated_at || !prevUser;
+        if (isNewUser) {
+          analytics.track('user_signed_up', {
+            userId: session.user.id,
+            method: session.user.app_metadata.provider || 'email',
+          });
+        } else {
+          analytics.track('user_signed_in', {
+            userId: session.user.id,
+            method: session.user.app_metadata.provider || 'email',
+          });
+        }
+      } else if (event === 'SIGNED_OUT') {
+        analytics.reset();
+      }
     });
 
     return () => subscription.unsubscribe();

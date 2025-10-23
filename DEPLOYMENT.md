@@ -79,6 +79,12 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 # App Configuration
 NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
 
+# Analytics (Optional)
+NEXT_PUBLIC_ANALYTICS_ENABLED=true
+NEXT_PUBLIC_POSTHOG_KEY=your_posthog_key
+NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
+NEXT_PUBLIC_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+
 # Optional: Email (if using Resend)
 RESEND_API_KEY=your_resend_api_key
 RESEND_FROM_EMAIL=noreply@yourdomain.com
@@ -115,9 +121,55 @@ RESEND_FROM_EMAIL=noreply@yourdomain.com
 
 ### 3.3 Verify Analytics
 
-1. Deploy to Vercel automatically includes Vercel Analytics
-2. Visit Vercel dashboard → Analytics to see traffic data
-3. Analytics will start collecting data immediately
+Analytics integration supports PostHog and Google Analytics 4.
+
+#### Setting up PostHog (Recommended)
+
+1. Go to [posthog.com](https://posthog.com) and create a free account
+2. Create a new project
+3. Copy your Project API Key from Settings → Project
+4. Add to environment variables:
+   ```bash
+   NEXT_PUBLIC_ANALYTICS_ENABLED=true
+   NEXT_PUBLIC_POSTHOG_KEY=phc_your_key_here
+   NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
+   ```
+5. Deploy or restart your application
+6. Visit PostHog dashboard to see events being tracked
+
+#### Setting up Google Analytics 4
+
+1. Go to [Google Analytics](https://analytics.google.com)
+2. Create a new GA4 property
+3. Get your Measurement ID (format: G-XXXXXXXXXX)
+4. Add to environment variables:
+   ```bash
+   NEXT_PUBLIC_ANALYTICS_ENABLED=true
+   NEXT_PUBLIC_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+   ```
+5. Deploy or restart your application
+6. Visit GA4 dashboard to see events being tracked
+
+#### Tracked Events
+
+The following events are automatically tracked:
+- `homepage_view` - When users visit the homepage
+- `search_initiated` - When users perform a search
+- `supplier_profile_view` - When users view a supplier profile
+- `contact_click` - When users click contact information
+- `rfq_created` - When users create a request for quote
+- `supplier_registered` - When a new supplier registers
+- `user_signed_up` - When a new user signs up
+- `user_signed_in` - When a user signs in
+
+#### Disabling Analytics
+
+To disable analytics tracking, set:
+```bash
+NEXT_PUBLIC_ANALYTICS_ENABLED=false
+```
+
+Or remove the environment variable entirely.
 
 ## Step 4: Ongoing Maintenance
 
