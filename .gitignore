@@ -2,6 +2,18 @@
 node_modules/
 /.pnp
 .pnp.js
+copilot/fix-and-spruce-up-code
+
+
+.next
+.env
+.env.local
+.env*.local
+dist
+out
+build
+*.log
+main
 
 # Testing
 /coverage

@@ -19,7 +19,11 @@ export default async function SupplierProfile({ params }: SupplierProfileProps) 
   }
   
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
+copilot/fix-and-spruce-up-code
 
+
+  
+ main
   const { data: supplier, error } = await supabase
     .from('suppliers')
     .select('*')

@@ -6,7 +6,11 @@ import { AuthProvider } from './auth/context';
 import { AuthNav } from './components/AuthNav';
 import { CookieConsent } from './components/CookieConsent';
 import { ErrorBoundary } from './components/ErrorBoundary';
+ copilot/fix-and-spruce-up-code
 import { Footer } from './components/Footer';
+
+import { AnalyticsProvider } from './components/AnalyticsProvider';
+ main
 
 export const metadata: Metadata = {
   title: 'GreenChainz - Sustainable Supplier Directory',
@@ -78,6 +82,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
         
         <ErrorBoundary>
+copilot/fix-and-spruce-up-code
           <AuthProvider>
             <header className="bg-gradient-primary text-white shadow-xl sticky top-0 z-50 backdrop-blur-sm">
               <nav className="flex flex-col md:flex-row justify-between items-center max-w-6xl mx-auto p-4 gap-4">
@@ -132,6 +137,31 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <CookieConsent />
             <Analytics />
           </AuthProvider>
+
+          <AnalyticsProvider>
+            <AuthProvider>
+              <header className="bg-green-700 text-white p-4 shadow">
+                <nav className="flex justify-between max-w-6xl mx-auto">
+                  <h1 className="text-xl font-bold">GreenChainz</h1>
+                  <div className="flex items-center space-x-4">
+                    <ul className="flex space-x-4">
+                      <li><a href="/" className="hover:text-green-200 transition-colors">Search</a></li>
+                      <li><a href="#suppliers" className="hover:text-green-200 transition-colors">Suppliers</a></li>
+                      <li><a href="#resources" className="hover:text-green-200 transition-colors">Resources</a></li>
+                      <li><a href="#investors" className="hover:text-green-200 transition-colors">For Investors</a></li>
+                      <li><a href="/admin" className="hover:text-green-200 transition-colors">Dashboard</a></li>
+                      <li><a href="#contact" className="hover:text-green-200 transition-colors">Contact</a></li>
+                    </ul>
+                    <AuthNav />
+                  </div>
+                </nav>
+              </header>
+              {children}
+              <CookieConsent />
+              <Analytics />
+            </AuthProvider>
+          </AnalyticsProvider>
+main
         </ErrorBoundary>
       </body>
     </html>
