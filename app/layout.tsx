@@ -6,7 +6,6 @@ import { AuthProvider } from './auth/context';
 import { AuthNav } from './components/AuthNav';
 import { CookieConsent } from './components/CookieConsent';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: 'GreenChainz - Sustainable Supplier Directory',

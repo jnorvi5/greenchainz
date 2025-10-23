@@ -8,9 +8,7 @@ interface SupplierProfileProps {
 
 export default async function SupplierProfile({ params }: SupplierProfileProps) {
   const { id } = await params;
-copilot/fix-tailwind-styling-unify-next-app-directory
 
-  
   // Create Supabase client inside the function to avoid build-time issues
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -21,8 +19,7 @@ copilot/fix-tailwind-styling-unify-next-app-directory
   }
   
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
-  
- main
+
   const { data: supplier, error } = await supabase
     .from('suppliers')
     .select('*')

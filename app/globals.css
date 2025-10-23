@@ -8,13 +8,10 @@
     --foreground: 0 0% 3.6%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.6%;
- copilot/fix-tailwind-styling-unify-next-app-directory
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.6%;
-
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
- main
     --primary: 142.1 76.2% 36.3%;
     --primary-foreground: 355.7 100% 97.3%;
     --secondary: 0 0% 96.1%;
@@ -25,17 +22,10 @@
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    -output: 0 0% 89.8%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.6%;
- main
     --ring: 142.1 76.2% 36.3%;
     --radius: 0.5rem;
   }
 
- copilot/fix-tailwind-styling-unify-next-app-directory
   .dark {
     --background: 0 0% 3.6%;
     --foreground: 0 0% 98%;
