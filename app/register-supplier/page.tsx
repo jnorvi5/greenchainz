@@ -30,7 +30,14 @@ export default function SupplierRegistration() {
     renewable_energy_percentage: '',
     waste_recycling_rate: '',
     water_usage_efficiency: '',
-    supply_chain_transparency: ''
+    supply_chain_transparency: '',
+    // Certification Evidence fields
+    epd_url: '',
+    fsc_license_code: '',
+    compostability_standard: '',
+    organic_textile_cert: '',
+    recycled_content_cert: '',
+    ethical_agri_cert: ''
   });
 
   const categories = [
@@ -96,6 +103,7 @@ export default function SupplierRegistration() {
         waste_recycling_rate: formData.waste_recycling_rate ? parseFloat(formData.waste_recycling_rate) : null,
         sustainability_score: sustainabilityScore,
         verified: false, // Requires admin approval
+        vetting_status: 'pending', // Initial vetting status
         user_id: user.id // Link to the user account
       };
 
@@ -325,6 +333,108 @@ export default function SupplierRegistration() {
                   <span className="text-sm">{cert}</span>
                 </label>
               ))}
+            </div>
+          </div>
+
+          {/* Certifications & Evidence */}
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-4">Certifications &amp; Evidence</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Provide structured certification evidence to enhance credibility and enable faster verification.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  FSC License Code
+                </label>
+                <input
+                  type="text"
+                  value={formData.fsc_license_code}
+                  onChange={(e) => handleInputChange('fsc_license_code', e.target.value)}
+                  className="w-full p-3 border rounded-lg"
+                  placeholder="FSC-C123456"
+                />
+                <p className="text-xs text-gray-500 mt-1">Forest Stewardship Council certification code</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Compostability Standard
+                </label>
+                <select
+                  value={formData.compostability_standard}
+                  onChange={(e) => handleInputChange('compostability_standard', e.target.value)}
+                  className="w-full p-3 border rounded-lg"
+                >
+                  <option value="">Select standard</option>
+                  <option value="ASTM D6400">ASTM D6400</option>
+                  <option value="ASTM D6868">ASTM D6868</option>
+                  <option value="EN 13432">EN 13432</option>
+                </select>
+                <p className="text-xs text-gray-500 mt-1">Compostability certification standard</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Organic Textile Certification
+                </label>
+                <select
+                  value={formData.organic_textile_cert}
+                  onChange={(e) => handleInputChange('organic_textile_cert', e.target.value)}
+                  className="w-full p-3 border rounded-lg"
+                >
+                  <option value="">Select certification</option>
+                  <option value="GOTS">GOTS (Global Organic Textile Standard)</option>
+                  <option value="OCS">OCS (Organic Content Standard)</option>
+                </select>
+                <p className="text-xs text-gray-500 mt-1">Organic textile certification</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Recycled Content Certification
+                </label>
+                <select
+                  value={formData.recycled_content_cert}
+                  onChange={(e) => handleInputChange('recycled_content_cert', e.target.value)}
+                  className="w-full p-3 border rounded-lg"
+                >
+                  <option value="">Select certification</option>
+                  <option value="GRS">GRS (Global Recycled Standard)</option>
+                  <option value="RCS">RCS (Recycled Claim Standard)</option>
+                </select>
+                <p className="text-xs text-gray-500 mt-1">Recycled content certification</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Ethical Agriculture Certification
+                </label>
+                <select
+                  value={formData.ethical_agri_cert}
+                  onChange={(e) => handleInputChange('ethical_agri_cert', e.target.value)}
+                  className="w-full p-3 border rounded-lg"
+                >
+                  <option value="">Select certification</option>
+                  <option value="Rainforest Alliance">Rainforest Alliance</option>
+                  <option value="Fairtrade">Fairtrade</option>
+                </select>
+                <p className="text-xs text-gray-500 mt-1">Ethical agriculture certification</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  EPD URL (Environmental Product Declaration)
+                </label>
+                <input
+                  type="url"
+                  value={formData.epd_url}
+                  onChange={(e) => handleInputChange('epd_url', e.target.value)}
+                  className="w-full p-3 border rounded-lg"
+                  placeholder="https://example.com/epd"
+                />
+                <p className="text-xs text-gray-500 mt-1">Link to your Environmental Product Declaration</p>
+              </div>
             </div>
           </div>
 

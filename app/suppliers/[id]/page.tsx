@@ -130,6 +130,64 @@ export default async function SupplierProfile({ params }: SupplierProfileProps) 
           </div>
         )}
 
+        {/* Certifications & Evidence */}
+        {(supplier.fsc_license_code || supplier.compostability_standard || 
+          supplier.organic_textile_cert || supplier.recycled_content_cert || 
+          supplier.ethical_agri_cert || supplier.epd_url) && (
+          <div className="bg-white rounded-lg shadow p-6 mb-6">
+            <h3 className="font-semibold text-gray-900 mb-4">Certification Evidence</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {supplier.fsc_license_code && (
+                <div className="flex items-start">
+                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                    FSC {supplier.fsc_license_code}
+                  </span>
+                </div>
+              )}
+              {supplier.compostability_standard && (
+                <div className="flex items-start">
+                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                    🌱 {supplier.compostability_standard}
+                  </span>
+                </div>
+              )}
+              {supplier.organic_textile_cert && (
+                <div className="flex items-start">
+                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                    🧵 {supplier.organic_textile_cert}
+                  </span>
+                </div>
+              )}
+              {supplier.recycled_content_cert && (
+                <div className="flex items-start">
+                  <span className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">
+                    ♻️ {supplier.recycled_content_cert}
+                  </span>
+                </div>
+              )}
+              {supplier.ethical_agri_cert && (
+                <div className="flex items-start">
+                  <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
+                    🌾 {supplier.ethical_agri_cert}
+                  </span>
+                </div>
+              )}
+              {supplier.epd_url && (
+                <div className="md:col-span-2">
+                  <a
+                    href={supplier.epd_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm"
+                  >
+                    📄 View Environmental Product Declaration (EPD) →
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Contact Information */}
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="font-semibold text-gray-900 mb-4">Contact Information</h3>
