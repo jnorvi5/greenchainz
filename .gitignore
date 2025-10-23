@@ -1,3 +1,7 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
 
 .next
 .env
@@ -7,9 +11,6 @@ dist
 out
 build
 *.log
-=======
-/.pnp
-.pnp.js
 
 # Testing
 /coverage

@@ -6,6 +6,7 @@ import { AuthProvider } from './auth/context';
 import { AuthNav } from './components/AuthNav';
 import { CookieConsent } from './components/CookieConsent';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { AnalyticsProvider } from './components/AnalyticsProvider';
 
 export const metadata: Metadata = {
   title: 'GreenChainz - Sustainable Supplier Directory',
@@ -70,27 +71,29 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <ErrorBoundary>
-          <AuthProvider>
-            <header className="bg-green-700 text-white p-4 shadow">
-              <nav className="flex justify-between max-w-6xl mx-auto">
-                <h1 className="text-xl font-bold">GreenChainz</h1>
-                <div className="flex items-center space-x-4">
-                  <ul className="flex space-x-4">
-                    <li><a href="/" className="hover:text-green-200 transition-colors">Search</a></li>
-                    <li><a href="#suppliers" className="hover:text-green-200 transition-colors">Suppliers</a></li>
-                    <li><a href="#resources" className="hover:text-green-200 transition-colors">Resources</a></li>
-                    <li><a href="#investors" className="hover:text-green-200 transition-colors">For Investors</a></li>
-                    <li><a href="/admin" className="hover:text-green-200 transition-colors">Dashboard</a></li>
-                    <li><a href="#contact" className="hover:text-green-200 transition-colors">Contact</a></li>
-                  </ul>
-                  <AuthNav />
-                </div>
-              </nav>
-            </header>
-            {children}
-            <CookieConsent />
-            <Analytics />
-          </AuthProvider>
+          <AnalyticsProvider>
+            <AuthProvider>
+              <header className="bg-green-700 text-white p-4 shadow">
+                <nav className="flex justify-between max-w-6xl mx-auto">
+                  <h1 className="text-xl font-bold">GreenChainz</h1>
+                  <div className="flex items-center space-x-4">
+                    <ul className="flex space-x-4">
+                      <li><a href="/" className="hover:text-green-200 transition-colors">Search</a></li>
+                      <li><a href="#suppliers" className="hover:text-green-200 transition-colors">Suppliers</a></li>
+                      <li><a href="#resources" className="hover:text-green-200 transition-colors">Resources</a></li>
+                      <li><a href="#investors" className="hover:text-green-200 transition-colors">For Investors</a></li>
+                      <li><a href="/admin" className="hover:text-green-200 transition-colors">Dashboard</a></li>
+                      <li><a href="#contact" className="hover:text-green-200 transition-colors">Contact</a></li>
+                    </ul>
+                    <AuthNav />
+                  </div>
+                </nav>
+              </header>
+              {children}
+              <CookieConsent />
+              <Analytics />
+            </AuthProvider>
+          </AnalyticsProvider>
         </ErrorBoundary>
       </body>
     </html>
