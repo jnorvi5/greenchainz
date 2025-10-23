@@ -6,6 +6,7 @@ import { AuthProvider } from './auth/context';
 import { AuthNav } from './components/AuthNav';
 import { CookieConsent } from './components/CookieConsent';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { Footer } from './components/Footer';
 
 export const metadata: Metadata = {
   title: 'GreenChainz - Sustainable Supplier Directory',
@@ -127,6 +128,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </nav>
             </header>
             {children}
+            <Footer />
             <CookieConsent />
             <Analytics />
           </AuthProvider>
