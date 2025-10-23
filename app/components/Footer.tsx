@@ -67,6 +67,11 @@ export function Footer() {
                   → Analytics
                 </a>
               </li>
+              <li>
+                <a href="/clock" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                  → World Clock
+                </a>
+              </li>
             </ul>
           </div>
 

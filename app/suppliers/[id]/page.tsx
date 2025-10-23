@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { LocalTimeChip } from '../../components/LocalTimeChip';
 
 interface SupplierProfileProps {
   params: Promise<{ id: string }>;
@@ -47,6 +48,11 @@ export default async function SupplierProfile({ params }: SupplierProfileProps) 
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{supplier.name}</h1>
               <p className="text-lg text-gray-600">{supplier.category} • {supplier.location}</p>
+              {supplier.time_zone && (
+                <div className="mt-2">
+                  <LocalTimeChip timeZone={supplier.time_zone} />
+                </div>
+              )}
             </div>
             <div className="text-right">
               <div className={`inline-block px-4 py-2 rounded-lg text-lg font-semibold ${

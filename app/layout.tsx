@@ -119,6 +119,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         </a>
                       </li>
                       <li>
+                        <a href="/clock" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                          World Clock
+                          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                      </li>
+                      <li>
                         <a href="#contact" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
                           Contact
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
