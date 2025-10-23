@@ -13,19 +13,11 @@ const supabase = createClient(
 export const dynamic = 'force-dynamic';
 
 export default function AuthPage() {
- copilot/fix-tailwind-styling-unify-next-app-directory
   const [redirectUrl, setRedirectUrl] = useState('/');
 
   useEffect(() => {
     setRedirectUrl(window.location.origin + '/');
   }, []);
-
-=======
-  const redirectUrl = typeof window !== 'undefined' 
-    ? `${window.location.origin}/` 
-    : process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000/';
-  
-main
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
