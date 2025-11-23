@@ -1,0 +1,22 @@
+{
+  "name": "greenchainz-verify-supplier-doc",
+  "version": "1.0.0",
+  "description": "AWS Lambda function for GreenChainz document verification using Textract",
+  "type": "module",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "textract",
+    "verification",
+    "greenchainz"
+  ],
+  "author": "GreenChainz",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-textract": "^3.0.0"
+  }
+}
