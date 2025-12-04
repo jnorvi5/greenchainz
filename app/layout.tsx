@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import Link from 'next/link';
 import { AuthProvider } from './auth/context';
 import { AuthNav } from './components/AuthNav';
 import { CookieConsent } from './components/CookieConsent';
@@ -84,51 +85,59 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <header className="bg-gradient-primary text-white shadow-xl sticky top-0 z-50 backdrop-blur-sm">
                 <nav className="flex flex-col md:flex-row justify-between items-center max-w-6xl mx-auto p-4 gap-4">
                   <h1 className="text-2xl font-bold tracking-tight hover:scale-105 transition-transform duration-300 cursor-pointer">
-                    <span className="inline-block">🌱</span> GreenChainz
+                    <Link href="/" className="flex items-center gap-1">
+                      <span className="inline-block">🌱</span> GreenChainz
+                    </Link>
                   </h1>
                   <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
                     <ul className="flex flex-wrap justify-center gap-4 md:gap-6">
                       <li>
-                        <a href="/" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                        <Link href="/" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                          Home
+                          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/search" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
                           Search
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#suppliers" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                        <Link href="/#suppliers" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
                           Suppliers
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#resources" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                        <Link href="/#resources" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
                           Resources
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#investors" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                        <Link href="/#investors" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
                           For Investors
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="/admin" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                        <Link href="/admin" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
                           Dashboard
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="/clock" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                        <Link href="/clock" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
                           World Clock
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#contact" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                        <Link href="/#contact" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
                           Contact
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                     <AuthNav />
