@@ -1,1 +1,0 @@
-Remove-Item "$env:USERPROFILE\Downloads\greenchainz-main (1)" -Recurse -Force
