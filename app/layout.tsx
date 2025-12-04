@@ -8,6 +8,7 @@ import { CookieConsent } from './components/CookieConsent';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Footer } from './components/Footer';
 import { AnalyticsProvider } from './components/AnalyticsProvider';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'GreenChainz - Sustainable Supplier Directory',
@@ -83,16 +84,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <AuthProvider>
               <header className="bg-gradient-primary text-white shadow-xl sticky top-0 z-50 backdrop-blur-sm">
                 <nav className="flex flex-col md:flex-row justify-between items-center max-w-6xl mx-auto p-4 gap-4">
-                  <h1 className="text-2xl font-bold tracking-tight hover:scale-105 transition-transform duration-300 cursor-pointer">
-                    <span className="inline-block">🌱</span> GreenChainz
-                  </h1>
+                  <Link href="/" className="flex items-center gap-2 text-2xl font-bold tracking-tight hover:scale-105 transition-transform duration-300 cursor-pointer">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logo.svg" alt="GreenChainz" className="h-10 w-10" />
+                    <span>GreenChainz</span>
+                  </Link>
                   <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
                     <ul className="flex flex-wrap justify-center gap-4 md:gap-6">
                       <li>
-                        <a href="/" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
+                        <Link href="/" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
                           Search
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <a href="#suppliers" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
@@ -114,7 +117,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                       </li>
                       <li>
                         <a href="/admin" className="hover:text-green-100 transition-all duration-300 hover:scale-110 inline-block font-medium relative group">
-                          Dashboard
+                          Admin
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-100 transition-all duration-300 group-hover:w-full"></span>
                         </a>
                       </li>

@@ -1,11 +1,14 @@
+import Link from 'next/link';
+
 export function Footer() {
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-12 mt-20 border-t-4 border-green-500">
       <div className="max-w-6xl mx-auto px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-3xl">🌱</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.svg" alt="GreenChainz" className="h-10 w-10" />
               <h3 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
                 GreenChainz
               </h3>
@@ -48,29 +51,29 @@ export function Footer() {
             <h4 className="font-bold text-lg mb-4 text-green-400">🚀 Platform</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="/" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                <Link href="/" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
                   → Search Suppliers
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/register-supplier" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                <Link href="/register-supplier" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
                   → Register as Supplier
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/admin" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                <Link href="/admin" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
                   → Admin Dashboard
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/dashboard" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                <Link href="/dashboard" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
                   → Analytics
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/clock" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                <Link href="/clock" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
                   → World Clock
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -105,19 +108,45 @@ export function Footer() {
             <h4 className="font-bold text-lg mb-4 text-purple-400">⚖️ Legal</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="/privacy-policy" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                <Link href="/privacy" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
                   → Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/terms-of-service" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                <Link href="/terms" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
                   → Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/cookies" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                <Link href="/cookies" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
                   → Cookie Policy
-                </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-lg mb-4 text-yellow-400">🏢 Company</h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link href="/about" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                  → About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                  → Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                  → FAQ
+                </Link>
+              </li>
+              <li>
+                <Link href="/auth" className="text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                  → Sign In
+                </Link>
               </li>
             </ul>
           </div>

@@ -138,26 +138,115 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-blue-50">
+      {/* Hero Section with Logo */}
+      <section className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16">
+        <div className="max-w-6xl mx-auto px-8 text-center">
+          <div className="flex justify-center mb-6">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.svg" alt="GreenChainz" className="h-24 w-24 drop-shadow-lg" />
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+            Go-To Source for Green Sourcing
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 text-green-100 max-w-3xl mx-auto">
+            [PLACEHOLDER: Tagline about connecting businesses with verified sustainable suppliers]
+          </p>
+          {!user && (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="/auth"
+                className="inline-block bg-white text-green-600 font-bold py-4 px-8 rounded-lg hover:bg-green-50 transition-colors text-lg shadow-lg"
+              >
+                🚀 Get Started Free
+              </a>
+              <a
+                href="#video"
+                className="inline-block bg-transparent border-2 border-white text-white font-bold py-4 px-8 rounded-lg hover:bg-white hover:text-green-600 transition-colors text-lg"
+              >
+                ▶️ Watch Demo
+              </a>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Video Placeholder Section */}
+      <section id="video" className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-8">
+          <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+            See GreenChainz in Action
+          </h2>
+          <div className="aspect-video bg-gray-200 rounded-2xl shadow-xl flex items-center justify-center border-4 border-dashed border-gray-400">
+            <div className="text-center p-8">
+              <div className="text-6xl mb-4">🎬</div>
+              <p className="text-2xl font-bold text-gray-600">[INSERT VIDEO HERE]</p>
+              <p className="text-gray-500 mt-2">Product demo or promotional video placeholder</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Marketing Features Section */}
+      <section className="py-16 bg-gradient-to-br from-gray-50 to-green-50">
+        <div className="max-w-6xl mx-auto px-8">
+          <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+            Why Choose GreenChainz?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-2xl shadow-xl p-8 text-center hover:shadow-2xl transition-shadow">
+              <div className="text-5xl mb-4">🌱</div>
+              <h3 className="text-xl font-bold mb-4 text-gray-800">Verified Suppliers</h3>
+              <p className="text-gray-600">
+                [PLACEHOLDER: Description of supplier verification process and sustainability metrics]
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl shadow-xl p-8 text-center hover:shadow-2xl transition-shadow">
+              <div className="text-5xl mb-4">📊</div>
+              <h3 className="text-xl font-bold mb-4 text-gray-800">Sustainability Scores</h3>
+              <p className="text-gray-600">
+                [PLACEHOLDER: Description of how sustainability scores help businesses make informed decisions]
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl shadow-xl p-8 text-center hover:shadow-2xl transition-shadow">
+              <div className="text-5xl mb-4">🤝</div>
+              <h3 className="text-xl font-bold mb-4 text-gray-800">Easy Connections</h3>
+              <p className="text-gray-600">
+                [PLACEHOLDER: Description of how GreenChainz facilitates supplier-buyer connections]
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div className="max-w-6xl mx-auto p-8">
-        <h1 className="text-5xl md:text-6xl font-bold text-center mb-12 text-gradient slide-up drop-shadow-lg">
-          Go-To Source for Green Sourcing
-        </h1>
 
         {!user ? (
           <div className="text-center mb-12 p-10 bg-white rounded-2xl shadow-2xl glass-effect bounce-in hover-glow max-w-2xl mx-auto">
-            <div className="text-6xl mb-6 animate-bounce">🌱</div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.svg" alt="GreenChainz" className="h-16 w-16 mx-auto mb-6" />
             <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
               Welcome to GreenChainz
             </h2>
             <p className="mb-8 text-gray-700 text-lg leading-relaxed">
+              [PLACEHOLDER: Brief description of GreenChainz value proposition for new visitors]
+            </p>
+            <p className="mb-8 text-gray-600">
               Sign in to access our database of sustainable suppliers and start your green sourcing journey.
             </p>
-            <a
-              href="/auth"
-              className="btn-primary inline-block text-lg"
-            >
-              ✨ Sign In to Get Started
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="/auth"
+                className="btn-primary inline-block text-lg"
+              >
+                ✨ Sign In to Get Started
+              </a>
+              <a
+                href="/about"
+                className="btn-secondary inline-block text-lg"
+              >
+                Learn More
+              </a>
+            </div>
           </div>
         ) : (
           <>
