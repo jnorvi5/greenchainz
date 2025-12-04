@@ -22,6 +22,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'URL required' }, { status: 400 });
   }
 
+  // SSRF protection: only allow certain hostnames and schemes
+  const ALLOWED_HOSTNAMES = [
+    'supplierA.com',
+    'products.supplierB.net',
+    'trusted-supplier.org',
+    // Add more allowed supplier hostnames as needed
+  ];
+
+  let parsedUrl: URL;
+  try {
+    parsedUrl = new URL(url);
+  } catch {
+    return NextResponse.json({ error: 'Invalid URL' }, { status: 400 });
+  }
+
+  if (parsedUrl.protocol !== 'https:') {
+    return NextResponse.json({ error: 'URL must use HTTPS scheme' }, { status: 400 });
+  }
+  if (!ALLOWED_HOSTNAMES.includes(parsedUrl.hostname)) {
+    return NextResponse.json({ error: 'Hostname not allowed' }, { status: 400 });
+  }
+
   try {
     // 1. Scrape the target URL
     const response = await fetch(url, {
