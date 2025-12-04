@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { Supplier, VerificationStatus, DataSource } from '@/types/supplier';
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,6 +10,10 @@ export async function GET(request: NextRequest) {
     const minScore = searchParams.get('minScore') || '';
     const location = searchParams.get('location') || '';
     const certification = searchParams.get('certification') || '';
+    const verificationStatus = searchParams.get('verificationStatus') as VerificationStatus | null;
+    const dataSource = searchParams.get('dataSource') as DataSource | null;
+    const includeUnverified = searchParams.get('includeUnverified') === 'true';
+    const featured = searchParams.get('featured') === 'true';
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
@@ -28,9 +33,9 @@ export async function GET(request: NextRequest) {
     // Build query
     let dbQuery = supabase.from('suppliers').select('*', { count: 'exact' });
 
-    // Apply text search
+    // Apply full-text search on name AND description using .or()
     if (query.trim()) {
-      dbQuery = dbQuery.ilike('name', `%${query}%`);
+      dbQuery = dbQuery.or(`name.ilike.%${query}%,description.ilike.%${query}%`);
     }
 
     // Apply filters
@@ -50,12 +55,28 @@ export async function GET(request: NextRequest) {
       dbQuery = dbQuery.contains('certifications', [certification]);
     }
 
-    // For non-authenticated requests, only show verified suppliers
-    // Note: In a real app, you'd check auth tokens here
-    const userId = searchParams.get('userId');
-    if (!userId) {
+    // Filter by verification_status if provided
+    if (verificationStatus) {
+      dbQuery = dbQuery.eq('verification_status', verificationStatus);
+    }
+
+    // Filter by data_source if provided
+    if (dataSource) {
+      dbQuery = dbQuery.eq('data_source', dataSource);
+    }
+
+    // For featured suppliers, only show verified with high sustainability scores
+    if (featured) {
+      dbQuery = dbQuery
+        .eq('verified', true)
+        .gte('sustainability_score', 80);
+    } else if (!includeUnverified) {
+      // By default, only show verified suppliers unless includeUnverified is true (for admin)
       dbQuery = dbQuery.eq('verified', true);
     }
+
+    // Order by sustainability_score descending
+    dbQuery = dbQuery.order('sustainability_score', { ascending: false, nullsFirst: false });
 
     // Apply pagination
     dbQuery = dbQuery.range(offset, offset + limit - 1);
@@ -72,7 +93,7 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json({
-      suppliers: data || [],
+      suppliers: (data || []) as Supplier[],
       total: count || 0,
       limit,
       offset
