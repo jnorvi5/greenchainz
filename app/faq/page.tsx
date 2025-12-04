@@ -15,7 +15,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: 'How do I register as a supplier?',
-    answer: '[PLACEHOLDER: You can register as a supplier by clicking on "Register as Supplier" in our navigation menu. You\'ll need to provide company information, certifications, and sustainability metrics for verification.]'
+    answer: '[PLACEHOLDER: You can register as a supplier by clicking on "Register as Supplier" in our navigation menu. You’ll need to provide company information, certifications, and sustainability metrics for verification.]'
   },
   {
     question: 'What certifications do you verify?',
